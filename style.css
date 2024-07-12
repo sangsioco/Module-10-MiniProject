@@ -1,0 +1,361 @@
+/* Navbar and Body Background and Footer style across all html */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif; /* Consistent font across the site */
+    background-image: url('poke_background.jpg');
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Fixed navbar on top */
+.navbar {
+    background-color: #003a70;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensures the navbar is above other content */
+}
+
+.navbar .navbar-brand {
+    font-weight: bold;
+    color: #ffcb05; /* Text color for the brand */
+}
+
+.navbar .navbar-brand:hover {
+    color: #3d7dca; /* Hover color for the brand */
+}
+
+.navbar .navbar-toggler {
+    border: none;
+}
+
+.navbar .navbar-toggler-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"%3E%3Cpath fill="none" stroke="%23ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/%3E%3C/svg%3E');
+}
+
+.navbar .nav-link {
+    color: whitesmoke; /* Text color for nav links */
+    padding: 14px 16px; /* Add padding for spacing */
+    font-size: 16px; /* Font size */
+}
+
+.navbar .nav-link:hover {
+    background-color: #3d7dca; /* Hover background color */
+    border-radius: 5px; /* Rounded corners on hover */
+    color: #ffcb05 !important;
+}
+
+/* Added padding-top to the body to make room for the fixed navbar */
+.body-content {
+    flex: 1; /* Allows the content to grow and push the footer down */
+    padding-top: 70px; /* Adjust this value if the navbar height changes */
+}
+
+footer {
+    background-color: #003a70; /* Changed to match navbar color */
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+@media (max-width: 600px) {
+    .navbar ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    footer {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* style for homepage.html */
+
+/* Ensure full height of the viewport */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Pulse animation for the text */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Bounce animation for the arrow */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Style for the h1 tag */
+h1 {
+    font-size: 48px; /* Size of the heading text */
+    color: black; /* Text color */
+    text-align: center; /* Center align the text */
+    margin: 70px 0; /* Remove margin */
+    font-family: 'Sigmar One', cursive;
+}
+
+main > p {
+    font-size: 24px; /* Size of the paragraph text */
+    color: #fff; /* Text color */
+    text-align: center; /* Center align the text */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    position: relative; /* Relative positioning for pseudo-element */
+    animation: bounce 2s infinite; /* Apply bouncing animation */
+}
+
+main > p::after {
+    content: '\2193'; /* Unicode for downward arrow */
+    display: block;
+    font-size: 30px; /* Size of the arrow */
+    margin-top: 10px; /* Space between text and arrow */
+    animation: bounce 2s infinite; /* Apply bouncing animation to arrow */
+}
+
+.bouncing-text {
+    font-size: 24px; /* Size of the paragraph text */
+    color: #fff; /* Text color */
+    text-align: center; /* Center align the text */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    position: relative; /* Relative positioning for pseudo-element */
+    animation: bounce 2s infinite; /* Apply bouncing animation */
+}
+
+.bouncing-text::after {
+    content: '\2193'; /* Unicode for downward arrow */
+    display: block;
+    font-size: 30px; /* Size of the arrow */
+    margin-top: 10px; /* Space between text and arrow */
+    animation: bounce 2s infinite; /* Apply bouncing animation to arrow */
+}
+
+.pokeball-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative; /* Relative positioning for text overlay */
+    margin-top: 10px; /* Reduce space between arrow and Pokéball */
+}
+
+.pokeball-img {
+    width: 150px;
+    height: 150px;
+    transition: transform 0.5s ease, filter 0.5s ease;
+    margin-top: 5px; /* Space between the arrow and the Pokéball */
+}
+
+.pokeball-img.open {
+    transform: rotate(180deg);
+    filter: brightness(1.5);
+}
+
+.pokeball-text {
+    position: absolute; /* Absolute positioning to overlay text */
+    color: black; /* Text color */
+    font-size: 20px; /* Text size */
+    font-weight: bold; /* Text weight */
+    text-align: center; /* Center align the text */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Center the text */
+    z-index: 1; /* Ensure the text is above the image */
+    opacity: 0; /* Hide text initially */
+    transition: opacity 0.5s ease; /* Smooth transition for text visibility */
+    font-family: 'Sigmar One', cursive;
+}
+
+.pokeball-img.open ~ .pokeball-text {
+    opacity: 1; /* Show text when Pokéball is open */
+}
+
+
+/* style for searching pokemon (search.html) */
+.search-container {
+    margin-top: 20px;
+}
+.pokemon-card {
+    margin-top: 20px;
+    max-width: 300px; /* Set a max width for the card */
+    margin: 20px auto; /* Center the card horizontally */
+}
+.pokemon-image {
+    width: 100%; /* Ensure the image fits within the card */
+    height: auto;
+}
+.search-title {
+    text-align: center; /* Center the text */
+    margin-top: 60px; /* Space below the navbar */
+}
+
+/*style for detail.html */
+
+.detail-container {
+    margin-top: 80px; /* Space below the navbar */
+    display: flex; /* Enable flexbox layout */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center content horizontally */
+}
+
+.detail-title {
+    text-align: center; /* Center the title text */
+    margin-bottom: 30px;
+}
+
+.pokemon-info {
+    display: flex; /* Enable flexbox layout */
+    flex-direction: row; /* Arrange cards in a row */
+    flex-wrap: wrap; /* Allow cards to wrap onto multiple lines */
+    justify-content: space-between; /* Distribute space between cards */
+    align-items: flex-start; /* Align cards to the top of the container */
+    gap: 20px; /* Space between cards */
+    width: 100%; /* Make sure it takes full width of the container */
+    max-width: 1200px; /* Optional: Set a max-width for better alignment */
+}
+
+/* Pokémon card image */
+.pokemon-image {
+    width: 100%; /* Ensure the image fits within the card */
+    height: 140px; /* Fixed height for the image */
+    object-fit: contain; /* Scale the image to fit within its container */
+}
+
+/* Pokémon card text */
+.card-title {
+    font-size: 1.25rem; /* Title size */
+    margin-bottom: 0.5rem; /* Space below the title */
+}
+
+.card-text {
+    font-size: 0.9rem; /* Description size */
+    color: #555; /* Description text color */
+}
+
+/* Media Query for Mobile View */
+@media (max-width: 768px) {
+    .pokemon-info {
+        flex-direction: column; /* Stack the cards vertically on smaller screens */
+        justify-content: center; /* Center the cards horizontally */
+        align-items: center; /* Center the cards horizontally */
+    }
+
+    .pokemon-card {
+        margin: 10px; /* Space between cards on mobile */
+        width: 100%; /* Make cards full width on mobile */
+        max-width: 200px; /* Reduce the card width on mobile */
+        height: auto; /* Adjust the height automatically */
+    }
+}
+
+
+/* style for abilties.html */
+
+.abilities-container {
+    margin-top: 80px; /* Space to push content below the navbar */
+}
+
+.abilities-title {
+    text-align: center;
+    margin-top: 10px; /* Space between the title and the content below it */
+}
+
+.ability-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 1rem;
+}
+
+.card-title {
+    font-size: 1.25rem; /* Title size */
+}
+
+.card-text {
+    font-size: 0.9rem; /* Description size */
+    margin-bottom: 0; /* No margin at the bottom */
+}
+
+/* Ensuring cards take up full width within the column */
+.col-md-4 {
+    flex: 0 0 33.333333%; /* Three cards per row */
+    max-width: 33.333333%;
+}
+
+@media (max-width: 768px) {
+    .card-title {
+        font-size: 1rem; /* Smaller title size */
+    }
+
+    .card-text {
+        font-size: 0.8rem; /* Smaller description size */
+    }
+}
+
+/* style for move card (moves.html) */
+   .move-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px; /* Fixed height for all cards */
+    width: 100%; /* Ensure the card takes full width of its container */
+    overflow: hidden; /* Hide overflowing content */
+}
+.move-card .card-body {
+    flex: 1; /* Allow the body to grow and fill the card */
+    display: flex;
+    flex-direction: column;
+}
+.move-card .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+.move-card .card-text {
+    flex: 1; /* Take up remaining space */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+}
+h1.moves {
+    text-align: center;
+    margin-top: 2rem; /* Ensure there is some space below the navbar */
+}
+.card-container {
+    display: flex;
+    justify-content: center;
+}
+
+/* generation.html */
+
+#generation-heading {
+    font-size: 2.5rem; /* Adjust the size of the heading */
+    color: #333; /* Set the color for the heading */
+    margin-top: 50px; /* Adjust the margin from the top */
+    margin-bottom: 20px; /* Adjust the margin from the bottom */
+}

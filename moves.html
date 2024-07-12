@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokémon Web App</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="generation.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="homepage.html">Pokémon Web App</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="search.html">Pokémon Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="detail.html">Pokémon Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="abilities.html">Pokémon Abilities</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="generationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Pokémon Generation
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="generationDropdown" id="generation-dropdown-menu">
+                            <a class="dropdown-item" href="generation.html?generation=1">Generation I</a>
+                            <a class="dropdown-item" href="generation.html?generation=2">Generation II</a>
+                            <a class="dropdown-item" href="generation.html?generation=3">Generation III</a>
+                            <a class="dropdown-item" href="generation.html?generation=4">Generation IV</a>
+                            <a class="dropdown-item" href="generation.html?generation=5">Generation V</a>
+                            <a class="dropdown-item" href="generation.html?generation=6">Generation VI</a>
+                            <a class="dropdown-item" href="generation.html?generation=7">Generation VII</a>
+                            <a class="dropdown-item" href="generation.html?generation=8">Generation VIII</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="moves.html">Pokémon Moves</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main class="container mt-4">
+        <h1 class="moves mt-5">Pokémon Moves</h1>
+        <div id="moves-list" class="row">
+            <!-- Moves will be dynamically loaded here -->
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Sara Angsioco. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const movesList = document.getElementById('moves-list');
+
+            const fetchMoves = async () => {
+                const url = 'https://pokeapi.co/api/v2/move?limit=100'; // Fetch the first 100 moves
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error('Failed to fetch moves.');
+                    const data = await response.json();
+                    const moves = data.results;
+
+                    // Fetch details for each move
+                    const movesDetails = await Promise.all(moves.map(move =>
+                        fetch(move.url).then(res => res.json())
+                    ));
+
+                    displayMoves(movesDetails);
+                } catch (error) {
+                    movesList.innerHTML = `<p class="text-danger">Error: ${error.message}</p>`;
+                }
+            };
+
+            const displayMoves = (moves) => {
+                movesList.innerHTML = moves.map(move => `
+                    <div class="col-md-4 mb-4 d-flex">
+                        <div class="card move-card">
+                            <div class="card-body">
+                                <h5 class="card-title">${move.name.charAt(0).toUpperCase() + move.name.slice(1)}</h5>
+                                <p class="card-text">${getEnglishDescription(move)}</p>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            };
+
+            const getEnglishDescription = (move) => {
+                const englishDescription = move.effect_entries.find(entry => entry.language.name === 'en');
+                return englishDescription ? englishDescription.effect : 'No description available.';
+            };
+
+            fetchMoves();
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
